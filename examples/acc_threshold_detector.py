@@ -51,8 +51,8 @@ try:
     libmetawear.mbl_mw_logging_start(d.board, 0)
 
     # change this to any time amount you want
-    print("Logging data for 10s")
-    sleep(10.0)
+    print("Logging data for 30s")
+    sleep(30.0)
     
     libmetawear.mbl_mw_acc_stop(d.board)
     libmetawear.mbl_mw_acc_disable_acceleration_sampling(d.board)
