@@ -27,11 +27,11 @@ class State:
         self.samples+= 1
         if self.samples >= 250 and self.samples % 50 == 0:
             f, psd = welch(z_list[-250:],fs=100,window='hanning',nperseg=250,detrend='constant')
-            print(np.mean(psd[2:6]))
-            if np.mean(psd[2:6])>np.mean(psd[:2]) and np.mean(psd[2:6])>0.001: #np.mean(psd[2:6])>2*np.mean(psd[6:12]) and np.mean(psd[2:6])>0.001: # and np.mean(psd[3:7])>np.mean(psd[13:19]) and np.mean(psd[3:7])>np.mean(psd[19:25]):
-                print('WALKING')
+            if np.mean(psd[2:6])>np.mean(psd[:2]) and np.mean(psd[2:6])>0.001:
+                walking = True
             else:
-                print('NOT WALKING')
+                walking = False
+                
         
 states = []
 for i in range(len(sys.argv) - 1):
@@ -51,11 +51,10 @@ for s in states:
 
     signal = libmetawear.mbl_mw_acc_get_acceleration_data_signal(s.device.board)
     libmetawear.mbl_mw_datasignal_subscribe(signal, None, s.callback)
-
     libmetawear.mbl_mw_acc_enable_acceleration_sampling(s.device.board)
     libmetawear.mbl_mw_acc_start(s.device.board)
 
-sleep(30.0)
+sleep(10.0)
 
 for s in states:
     libmetawear.mbl_mw_acc_stop(s.device.board)

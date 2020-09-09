@@ -8,6 +8,8 @@ from threading import Event
 import platform
 import sys
 
+print(sys.version_info[0])
+
 if sys.version_info[0] == 2:
     range = xrange
 
